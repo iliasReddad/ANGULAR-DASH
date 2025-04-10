@@ -1,0 +1,161 @@
+.profile-container {
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 24px;
+  
+  h1 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  .page-subtitle {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  
+  p {
+    margin-top: 16px;
+    color: #555;
+  }
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-sidebar {
+  .avatar-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #f5f5f5;
+      color: #555;
+      font-size: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+    
+    .avatar-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 16px;
+    }
+    
+    .user-name {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    
+    .user-email {
+      margin: 0 0 16px 0;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+}
+
+.profile-main {
+  mat-card {
+    mat-card-header {
+      margin-bottom: 16px;
+    }
+    
+    mat-card-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.settings-tabs {
+  .tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    
+    button {
+      padding: 8px 16px;
+      margin-right: 8px;
+      border-radius: 0;
+      color: #666;
+      
+      &.active {
+        color: #3f51b5;
+        border-bottom: 2px solid #3f51b5;
+      }
+      
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+  
+  .tab-content {
+    .tab-pane {
+      padding: 8px 0;
+    }
+  }
+}
+
+.form-row {
+  margin-bottom: 16px;
+  
+  &.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+}
+
+.form-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.placeholder-text {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 32px 0;
+}

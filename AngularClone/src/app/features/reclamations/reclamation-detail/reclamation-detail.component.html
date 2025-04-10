@@ -1,0 +1,158 @@
+<div class="reclamation-detail-container">
+  <div class="page-header">
+    <div class="header-left">
+      <button mat-icon-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1>Reclamation Details</h1>
+    </div>
+    <div class="header-actions">
+      <button mat-button color="primary" (click)="toggleEdit()" *ngIf="!editing && !loading">
+        <mat-icon>edit</mat-icon> Edit
+      </button>
+      <button mat-button color="warn" (click)="toggleEdit()" *ngIf="editing && !loading">
+        <mat-icon>close</mat-icon> Cancel
+      </button>
+      <button mat-raised-button color="primary" (click)="saveChanges()" *ngIf="editing && !loading">
+        <mat-icon>save</mat-icon> Save
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    <p>Loading reclamation details...</p>
+  </div>
+
+  <div *ngIf="!loading && reclamation" class="reclamation-content">
+    <div class="reclamation-header">
+      <div class="reclamation-info">
+        <span class="reclamation-id">{{ reclamation.id }}</span>
+        <h2 class="reclamation-title">{{ reclamation.title }}</h2>
+        <div class="reclamation-meta">
+          <div class="meta-item">
+            <span class="meta-label">Submitted by:</span>
+            <span class="meta-value">{{ reclamation.submittedBy }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Created at:</span>
+            <span class="meta-value">{{ reclamation.createdAt | date:'medium' }}</span>
+          </div>
+          <div class="meta-item" *ngIf="reclamation.updatedAt">
+            <span class="meta-label">Last updated:</span>
+            <span class="meta-value">{{ reclamation.updatedAt | date:'medium' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="reclamation-badges">
+        <span class="status-chip" [ngClass]="getStatusClass(reclamation.status)">
+          {{ reclamation.status }}
+        </span>
+        <span class="priority-chip" [ngClass]="getPriorityClass(reclamation.priority)">
+          {{ reclamation.priority }}
+        </span>
+        <span class="type-chip">
+          {{ reclamation.type }}
+        </span>
+      </div>
+    </div>
+
+    <!-- View Mode -->
+    <div *ngIf="!editing" class="reclamation-details">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Description</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p *ngIf="reclamation.description">{{ reclamation.description }}</p>
+          <p *ngIf="!reclamation.description" class="no-data">No description provided</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card *ngIf="reclamation.notes && reclamation.notes.length > 0">
+        <mat-card-header>
+          <mat-card-title>Notes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="notes-list">
+            <li *ngFor="let note of reclamation.notes">{{ note }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Edit Mode -->
+    <div *ngIf="editing" class="reclamation-form">
+      <form [formGroup]="reclamationForm">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Reclamation Information</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" required>
+                <mat-error *ngIf="reclamationForm.get('title')?.hasError('required')">
+                  Title is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row three-col">
+              <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type" required>
+                  <mat-option *ngFor="let type of reclamationTypeOptions" [value]="type">
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="reclamationForm.get('type')?.hasError('required')">
+                  Type is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" required>
+                  <mat-option *ngFor="let status of reclamationStatusOptions" [value]="status">
+                    {{ status }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="reclamationForm.get('status')?.hasError('required')">
+                  Status is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority" required>
+                  <mat-option *ngFor="let priority of reclamationPriorityOptions" [value]="priority">
+                    {{ priority }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="reclamationForm.get('priority')?.hasError('required')">
+                  Priority is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" rows="4"></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Notes (one per line)</mat-label>
+                <textarea matInput formControlName="notes" rows="5"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+</div>

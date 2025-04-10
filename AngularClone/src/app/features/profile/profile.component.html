@@ -1,0 +1,134 @@
+<div class="profile-container">
+  <div class="page-header">
+    <h1>Profile</h1>
+    <p class="page-subtitle">Manage your account settings and preferences</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    <p>Loading profile...</p>
+  </div>
+
+  <div *ngIf="!loading && userProfile" class="profile-content">
+    <div class="profile-sidebar">
+      <div class="avatar-container">
+        <div class="avatar" *ngIf="!userProfile.avatarUrl">
+          {{ userProfile.fullName.split(' ')[0].charAt(0) }}{{ userProfile.fullName.split(' ')[1]?.charAt(0) || '' }}
+        </div>
+        <img *ngIf="userProfile.avatarUrl" [src]="userProfile.avatarUrl" alt="User avatar" class="avatar-image">
+        <h3 class="user-name">{{ userProfile.fullName }}</h3>
+        <p class="user-email">{{ userProfile.email }}</p>
+        <button mat-stroked-button color="primary" (click)="changeAvatar()">Change Avatar</button>
+      </div>
+    </div>
+
+    <div class="profile-main">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Account Settings</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="settings-tabs">
+            <div class="tab-buttons">
+              <button 
+                mat-button 
+                [ngClass]="{'active': activeTab === 'general'}" 
+                (click)="setActiveTab('general')">
+                <mat-icon>person</mat-icon> General
+              </button>
+              <button 
+                mat-button 
+                [ngClass]="{'active': activeTab === 'security'}" 
+                (click)="setActiveTab('security')">
+                <mat-icon>security</mat-icon> Security
+              </button>
+              <button 
+                mat-button 
+                [ngClass]="{'active': activeTab === 'notifications'}" 
+                (click)="setActiveTab('notifications')">
+                <mat-icon>notifications</mat-icon> Notifications
+              </button>
+              <button 
+                mat-button 
+                [ngClass]="{'active': activeTab === 'permissions'}" 
+                (click)="setActiveTab('permissions')">
+                <mat-icon>vpn_key</mat-icon> Permissions
+              </button>
+            </div>
+
+            <div class="tab-content">
+              <!-- General Tab -->
+              <div *ngIf="activeTab === 'general'" class="tab-pane">
+                <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+                  <div class="form-row two-col">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Full Name</mat-label>
+                      <input matInput formControlName="fullName" required>
+                      <mat-error *ngIf="profileForm.get('fullName')?.hasError('required')">
+                        Full name is required
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Email Address</mat-label>
+                      <input matInput formControlName="email" required type="email">
+                      <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+                        Email is required
+                      </mat-error>
+                      <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+                        Please enter a valid email address
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-row two-col">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Phone Number</mat-label>
+                      <input matInput formControlName="phoneNumber">
+                      <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('pattern')">
+                        Please enter a valid phone number
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Job Title</mat-label>
+                      <input matInput formControlName="jobTitle">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                      <mat-label>About Me</mat-label>
+                      <textarea matInput formControlName="about" rows="4"></textarea>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-actions">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Security Tab -->
+              <div *ngIf="activeTab === 'security'" class="tab-pane">
+                <p class="placeholder-text">Security settings will be implemented here.</p>
+              </div>
+
+              <!-- Notifications Tab -->
+              <div *ngIf="activeTab === 'notifications'" class="tab-pane">
+                <p class="placeholder-text">Notification preferences will be implemented here.</p>
+              </div>
+
+              <!-- Permissions Tab -->
+              <div *ngIf="activeTab === 'permissions'" class="tab-pane">
+                <p class="placeholder-text">User permissions settings will be implemented here.</p>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<mat-card class="kpi-card">
+  <div class="kpi-card-content">
+    <div class="kpi-icon">
+      <mat-icon>{{ icon }}</mat-icon>
+    </div>
+    <div class="kpi-details">
+      <span class="kpi-title">{{ title }}</span>
+      <div class="kpi-value-container">
+        <span class="kpi-value">{{ formatValue() }}</span>
+        <span class="kpi-change" [ngClass]="getChangeClass()">{{ formatChange() }}</span>
+      </div>
+      <div class="kpi-trend-indicator">
+        <mat-progress-bar mode="determinate" [value]="100" color="primary"></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+</mat-card>

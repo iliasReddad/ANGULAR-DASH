@@ -1,0 +1,109 @@
+<div class="dashboard-container">
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Loading dashboard data...</p>
+  </div>
+
+  <div *ngIf="!loading && stats" class="dashboard-content">
+    <!-- KPI Cards Section -->
+    <div class="kpi-cards">
+      <app-kpi-card 
+        icon="assignment_return"
+        title="Total Reclamations"
+        [value]="stats.totalReclamations.value"
+        [change]="stats.totalReclamations.change">
+      </app-kpi-card>
+      
+      <app-kpi-card 
+        icon="people"
+        title="Active Users"
+        [value]="stats.activeUsers.value"
+        [change]="stats.activeUsers.change">
+      </app-kpi-card>
+      
+      <app-kpi-card 
+        icon="shopping_cart"
+        title="Total Orders"
+        [value]="stats.totalOrders.value"
+        [change]="stats.totalOrders.change">
+      </app-kpi-card>
+      
+      <app-kpi-card 
+        icon="attach_money"
+        title="Revenue"
+        [value]="stats.revenue.value"
+        [change]="stats.revenue.change"
+        prefix="$">
+      </app-kpi-card>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-main">
+      <div class="dashboard-left">
+        <!-- Recent Activity -->
+        <mat-card class="dashboard-card activity-card">
+          <mat-card-header>
+            <mat-card-title>Recent Activity</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-activity-feed [activities]="recentActivity"></app-activity-feed>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Recent Reclamations -->
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>Recent Reclamations</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="reclamations-list">
+              <div *ngFor="let reclamation of recentReclamations" class="reclamation-item">
+                <div class="reclamation-info">
+                  <span class="reclamation-title">{{reclamation.title}}</span>
+                  <span class="reclamation-date">{{reclamation.createdAt | date}}</span>
+                </div>
+                <div class="reclamation-status">
+                  <span class="status-badge" [ngClass]="'status-' + reclamation.status.toLowerCase()">
+                    {{reclamation.status}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="dashboard-right">
+        <!-- Performance Metrics -->
+        <mat-card class="dashboard-card performance-card">
+          <mat-card-header>
+            <mat-card-title>Performance</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngFor="let metric of performanceMetrics" class="performance-metric">
+              <app-performance-bar 
+                [label]="metric.name" 
+                [value]="metric.value">
+              </app-performance-bar>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Revenue Data -->
+        <mat-card class="dashboard-card chart-card">
+          <mat-card-header>
+            <mat-card-title>Revenue Trend</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="data-list">
+              <div *ngFor="let item of revenueMonthlyData" class="data-list-item">
+                <span class="month-label">{{item.name}}</span>
+                <span class="revenue-value">${{item.value.toLocaleString()}}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

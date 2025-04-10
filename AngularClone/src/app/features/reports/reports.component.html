@@ -1,0 +1,66 @@
+<div class="reports-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h2>Reports</h2>
+      <p class="header-subtitle">View and download your business reports</p>
+    </div>
+    <div class="header-actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Time Frame</mat-label>
+        <mat-select [value]="selectedTimeFrame" (selectionChange)="onTimeFrameChange($event)">
+          <mat-option *ngFor="let timeFrame of timeFrames" [value]="timeFrame">
+            {{ timeFrame }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Categories Tabs -->
+  <div class="categories-tabs">
+    <mat-button-toggle-group [value]="selectedCategory">
+      <mat-button-toggle *ngFor="let category of categories" [value]="category" (change)="filterByCategory(category)">
+        {{ category }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span>Loading reports...</span>
+  </div>
+
+  <!-- Reports Grid -->
+  <div class="reports-grid" *ngIf="!loading">
+    <div class="empty-state" *ngIf="filteredReports.length === 0">
+      <mat-icon>description_off</mat-icon>
+      <p>No reports available for the selected category</p>
+      <button mat-flat-button color="primary">Generate New Report</button>
+    </div>
+
+    <div class="report-card" *ngFor="let report of filteredReports">
+      <div class="report-header">
+        <h3>{{ report.title }}</h3>
+        <span class="report-date">{{ report.generatedAt | date:'MMMM d, yyyy' }}</span>
+      </div>
+      <p class="report-description">{{ report.description }}</p>
+      <div class="report-actions">
+        <button mat-stroked-button>
+          <mat-icon>visibility</mat-icon>
+          View
+        </button>
+        <button mat-stroked-button [matMenuTriggerFor]="downloadMenu">
+          <mat-icon>download</mat-icon>
+          Download
+        </button>
+        <mat-menu #downloadMenu="matMenu">
+          <button mat-menu-item *ngFor="let format of report.formats" (click)="downloadReport(report, format)">
+            <mat-icon>{{ format === 'pdf' ? 'picture_as_pdf' : (format === 'csv' ? 'table_chart' : (format === 'xlsx' ? 'grid_on' : 'code')) }}</mat-icon>
+            <span>{{ format.toUpperCase() }}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>

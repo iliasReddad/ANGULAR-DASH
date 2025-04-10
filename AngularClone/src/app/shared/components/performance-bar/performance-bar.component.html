@@ -1,0 +1,11 @@
+<div class="performance-bar">
+  <div class="performance-header">
+    <span class="performance-label">{{ label }}</span>
+    <span class="performance-value" *ngIf="showPercentage">{{ value }}%</span>
+  </div>
+  <mat-progress-bar 
+    mode="determinate" 
+    [value]="getProgressBarValue()" 
+    [color]="getProgressBarColor()">
+  </mat-progress-bar>
+</div>

@@ -1,0 +1,106 @@
+<header class="header">
+  <div class="left-section">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="page-title">{{ currentPage }}</h1>
+    <button mat-icon-button class="back-button" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  
+  <div class="search-section">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Search...">
+    </mat-form-field>
+  </div>
+  
+  <div class="right-section">
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
+      <mat-icon [matBadge]="3" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+    
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+      <mat-icon>settings</mat-icon>
+    </button>
+    
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
+      <div class="user-avatar" *ngIf="currentUser">
+        {{ currentUser?.firstName?.charAt(0) }}{{ currentUser?.lastName?.charAt(0) }}
+      </div>
+    </button>
+  </div>
+  
+  <!-- Notifications Menu -->
+  <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+    <div class="menu-header">
+      <h3>Notifications</h3>
+      <button mat-button color="primary">Mark all as read</button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="notification-item">
+      <mat-icon class="notification-icon">warning</mat-icon>
+      <div class="notification-content">
+        <p class="notification-text">New reclamation needs your attention</p>
+        <p class="notification-time">2 minutes ago</p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="notification-item">
+      <mat-icon class="notification-icon">shopping_cart</mat-icon>
+      <div class="notification-content">
+        <p class="notification-text">New order has been placed</p>
+        <p class="notification-time">15 minutes ago</p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="notification-item">
+      <mat-icon class="notification-icon">person</mat-icon>
+      <div class="notification-content">
+        <p class="notification-text">New user registered</p>
+        <p class="notification-time">1 hour ago</p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-button color="primary" class="view-all-button">View all notifications</button>
+  </mat-menu>
+  
+  <!-- Settings Menu -->
+  <mat-menu #settingsMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>brightness_medium</mat-icon>
+      <span>Theme Settings</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications</mat-icon>
+      <span>Notification Settings</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>language</mat-icon>
+      <span>Language Settings</span>
+    </button>
+  </mat-menu>
+  
+  <!-- User Menu -->
+  <mat-menu #userMenu="matMenu">
+    <div class="user-info" *ngIf="currentUser">
+      <p class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</p>
+      <p class="user-email">{{ currentUser?.email }}</p>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="goToProfile()">
+      <mat-icon>person</mat-icon>
+      <span>My Profile</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>help</mat-icon>
+      <span>Help</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</header>

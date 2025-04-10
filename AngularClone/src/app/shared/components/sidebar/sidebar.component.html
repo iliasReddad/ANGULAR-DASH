@@ -1,0 +1,16 @@
+<div class="sidebar-container">
+  <div class="logo-container">
+    <h2 class="logo">Admin Dashboard</h2>
+  </div>
+  
+  <nav class="navigation">
+    <ul class="nav-list">
+      <li *ngFor="let item of navigationItems" 
+          [ngClass]="{'active': isActive(item.route)}"
+          (click)="navigateTo(item.route)">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.title }}</span>
+      </li>
+    </ul>
+  </nav>
+</div>

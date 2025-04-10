@@ -1,0 +1,19 @@
+<div class="activity-feed">
+  <div *ngIf="activities.length === 0" class="no-activities">
+    <mat-icon>notifications_off</mat-icon>
+    <p>No recent activities</p>
+  </div>
+  
+  <div *ngFor="let activity of activities" class="activity-item">
+    <div class="activity-icon">
+      <mat-icon>{{ getActivityIcon(activity.type) }}</mat-icon>
+    </div>
+    <div class="activity-content">
+      <p class="activity-message">{{ activity.message }}</p>
+      <div class="activity-meta">
+        <span class="activity-time">{{ getTimeAgo(activity.timestamp) }}</span>
+        <span class="activity-user">by {{ activity.user }}</span>
+      </div>
+    </div>
+  </div>
+</div>

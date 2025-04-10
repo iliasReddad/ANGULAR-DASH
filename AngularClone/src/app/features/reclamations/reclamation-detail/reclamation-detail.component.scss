@@ -1,0 +1,217 @@
+.reclamation-detail-container {
+  width: 100%;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    
+    h1 {
+      margin: 0 0 0 8px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  
+  p {
+    margin-top: 16px;
+    color: #555;
+  }
+}
+
+.reclamation-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.reclamation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+  border-bottom: 1px solid #eaeaea;
+  flex-wrap: wrap;
+  gap: 16px;
+  
+  .reclamation-info {
+    flex: 1;
+    min-width: 200px;
+    
+    .reclamation-id {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    
+    .reclamation-title {
+      margin: 0 0 16px 0;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    
+    .reclamation-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      
+      .meta-item {
+        font-size: 14px;
+        
+        .meta-label {
+          color: #666;
+          margin-right: 4px;
+        }
+        
+        .meta-value {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  .reclamation-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    
+    .status-chip,
+    .priority-chip,
+    .type-chip {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .status-chip {
+      &.status-pending {
+        background-color: #fff9c4;
+        color: #ffa000;
+      }
+      
+      &.status-in-progress {
+        background-color: #e3f2fd;
+        color: #1976d2;
+      }
+      
+      &.status-resolved {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+      
+      &.status-rejected {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+    }
+    
+    .priority-chip {
+      &.priority-high {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+      
+      &.priority-medium {
+        background-color: #fff8e1;
+        color: #ff8f00;
+      }
+      
+      &.priority-low {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+    }
+    
+    .type-chip {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+  }
+}
+
+.reclamation-details {
+  padding: 24px;
+  
+  mat-card {
+    margin-bottom: 24px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    mat-card-header {
+      margin-bottom: 16px;
+    }
+  }
+  
+  .no-data {
+    color: #999;
+    font-style: italic;
+  }
+  
+  .notes-list {
+    margin: 0;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 8px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.reclamation-form {
+  padding: 24px;
+  
+  .form-row {
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &.three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .reclamation-form {
+    .form-row.three-col {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+}
